@@ -13,17 +13,9 @@
         Background="{DynamicResource MaterialDesignPaper}"					  
         GlowBrush="{DynamicResource AccentColorBrush}"					  
         FontFamily="{StaticResource DefaultFont}"
-        
         Title="MainWindow" Height="350" Width="525">
     <Grid>
 
-        <ListBox>
-            <ListBoxItem>
-                <Button  >
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My Second Material Design App</TextBlock>
-                </Button>
-
-            </ListBoxItem>
-        </ListBox>
+        
     </Grid>
 </controls:MetroWindow>
