@@ -51,6 +51,7 @@
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"                                  
                         HorizontalAlignment="Stretch"
                     x:Name="btLogin"
+                    Click="btLogin_Click"
                     ToolTip="点击登录" Content="登录"/>
             </Grid>
         </StackPanel>

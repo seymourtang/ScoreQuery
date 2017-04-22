@@ -59,5 +59,41 @@ namespace ScoreQuery.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string @__EVENTARGUMENT {
+            get {
+                return ResourceManager.GetString("__EVENTARGUMENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string @__EVENTTARGET {
+            get {
+                return ResourceManager.GetString("__EVENTTARGET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 /wEWBALplYnsCgK/ycb4AQLVqbaRCwLi44eGDNL1/UVfta6zTJ9DMRXMNe6Ao6Wm 的本地化字符串。
+        /// </summary>
+        internal static string @__EVENTVALIDATION {
+            get {
+                return ResourceManager.GetString("__EVENTVALIDATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 /wEPDwUJMTg2MzE1NTYyD2QWAgIBD2QWAgIGDw8WAh4EVGV4dAVQ5a2m55Sf5Yid5aeL5a+G56CB5Li66Lqr5Lu96K+B5Y+35ZCO5YWt5L2N44CC5a+G56CB6ZW/5bqm5LiN6LaF6L+HMTDkuKrlrZfnrKbjgIJkZGTItFe6UDnNqdE2sz592HXKwZ7Fhw== 的本地化字符串。
+        /// </summary>
+        internal static string @__VIEWSTATE {
+            get {
+                return ResourceManager.GetString("__VIEWSTATE", resourceCulture);
+            }
+        }
     }
 }
