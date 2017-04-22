@@ -79,7 +79,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   查找类似 /wEWBALplYnsCgK/ycb4AQLVqbaRCwLi44eGDNL1/UVfta6zTJ9DMRXMNe6Ao6Wm 的本地化字符串。
+        ///   查找类似 %2FwEWBALplYnsCgK%2Fycb4AQLVqbaRCwLi44eGDNL1%2FUVfta6zTJ9DMRXMNe6Ao6Wm 的本地化字符串。
         /// </summary>
         internal static string @__EVENTVALIDATION {
             get {
@@ -88,7 +88,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   查找类似 /wEPDwUJMTg2MzE1NTYyD2QWAgIBD2QWAgIGDw8WAh4EVGV4dAVQ5a2m55Sf5Yid5aeL5a+G56CB5Li66Lqr5Lu96K+B5Y+35ZCO5YWt5L2N44CC5a+G56CB6ZW/5bqm5LiN6LaF6L+HMTDkuKrlrZfnrKbjgIJkZGTItFe6UDnNqdE2sz592HXKwZ7Fhw== 的本地化字符串。
+        ///   查找类似 %2FwEPDwUJMTg2MzE1NTYyD2QWAgIBD2QWAgIGDw8WAh4EVGV4dAVQ5a2m55Sf5Yid5aeL5a%2BG56CB5Li66Lqr5Lu96K%2BB5Y%2B35ZCO5YWt5L2N44CC5a%2BG56CB6ZW%2F5bqm5LiN6LaF6L%2BHMTDkuKrlrZfnrKbjgIJkZGTItFe6UDnNqdE2sz592HXKwZ7Fhw%3D%3D 的本地化字符串。
         /// </summary>
         internal static string @__VIEWSTATE {
             get {

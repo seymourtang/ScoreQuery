@@ -57,8 +57,9 @@ namespace Http
             request.UserAgent = "Mozilla/5.0";
             request.ContentType = "application/x-www-form-urlencoded";
             request.AllowAutoRedirect = true;
-            request.CookieContainer = cookies;
-            request.KeepAlive = true;
+            request.CookieContainer = new CookieContainer();
+            cookies = request.CookieContainer;
+            request.KeepAlive = true;           
             byte[] postdatabyte = Encoding.UTF8.GetBytes(postData);
             request.ContentLength = postdatabyte.Length;
             using (Stream stream = request.GetRequestStream())

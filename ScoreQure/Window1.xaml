@@ -1,0 +1,66 @@
+﻿<controls:MetroWindow x:Class="ScoreQuery.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScoreQuery"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        WindowTransitionsEnabled="False"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        BorderThickness="0" 
+        GlowBrush="Black"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        Language="zh-CN"    
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"          
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Window1" Height="400" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <Button Grid.Row="0" Content="获取" Click="Button_Click"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" x:Name="C0"/>
+            <Grid Grid.Column="1" x:Name="C1"/>
+            <Grid Grid.Column="2" x:Name="C2"/>
+            <Grid Grid.Column="3" x:Name="C3"/>
+            <Grid Grid.Column="4" x:Name="C4"/>
+            <Grid Grid.Column="5" x:Name="C5"/>
+            <Grid Grid.Column="6" x:Name="C6"/>
+            <Grid Grid.Column="7" x:Name="C7"/>
+            <ListView x:Name="lv"
+                                Grid.ColumnSpan="10"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                IsSynchronizedWithCurrentItem="True" FontFamily="Microsoft YaHei UI Light">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="学期" DisplayMemberBinding="{Binding Term}" Width="{Binding ActualWidth, ElementName=C0}"/>
+                        <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=C1}"/>
+                        <GridViewColumn Header="课程性质" DisplayMemberBinding="{Binding ClassNature}" Width="{Binding ActualWidth, ElementName=C2}"/>
+                        <GridViewColumn Header="平台类别" DisplayMemberBinding="{Binding Platform}" Width="{Binding ActualWidth, ElementName=C3}"/>
+                        <GridViewColumn Header="成绩" DisplayMemberBinding="{Binding Grade}" Width="{Binding ActualWidth, ElementName=C4}"/>
+                        <GridViewColumn Header="学分" DisplayMemberBinding="{Binding Credit}" Width="{Binding ActualWidth, ElementName=C5}"/>
+                        <GridViewColumn Header="绩点" DisplayMemberBinding="{Binding GradePoint}" Width="{Binding ActualWidth, ElementName=C6}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</controls:MetroWindow>
