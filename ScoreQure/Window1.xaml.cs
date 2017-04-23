@@ -28,20 +28,28 @@ namespace ScoreQuery
         public Window1()
         {
             InitializeComponent();
+            BtnAbout.Click += (s0, e0) =>
+            {
+                Flyout.IsOpen = !Flyout.IsOpen;
+            };
         }
         HttpHelper httpHelper = new HttpHelper();
+        const string BigScoreUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_BigScoreTableDetail.aspx?key=0";
+        const string TestDetailUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_TestTableDetail.aspx?key=0";
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            Thread t = new Thread(GetBigScore);
-            t.IsBackground = true;
+            Thread t = new Thread(GetBigScore)
+            {
+                IsBackground = true
+            };
             t.Start();
         }
 
         private void GetBigScore()
         {
             List<BigScore> bigScore = new List<BigScore>();
-            var result = httpHelper.HttpGet("http://202.120.108.14/ecustedu/K_StudentQuery/K_BigScoreTableDetail.aspx?key=0");
+            var result = httpHelper.HttpGet(BigScoreUrl);
             string rowPath = "//*[@id=\"Table1\"]";
             HtmlDocument doc = new HtmlDocument()
             {
@@ -92,7 +100,9 @@ namespace ScoreQuery
                     else if (i % 7 == 6)
                     {
                         GradePoint = dt[i].InnerText.Trim();
-                        bigScore.Add(new BigScore { Term = Term, ClassName = ClassName, ClassNature = ClassNature, Credit = Credit, Grade = Grade, Platform = Platform, GradePoint = GradePoint });
+                        bigScore.Add(new BigScore {
+                            Term = Term, ClassName = ClassName, ClassNature = ClassNature, Credit = Credit, Grade = Grade, Platform = Platform, GradePoint = GradePoint
+                        });
                     }
 
                 }
@@ -108,78 +118,107 @@ namespace ScoreQuery
                 Console.WriteLine("NULL");
             }
         }
-        private void GetTestTabDetail()
+
+        private void PreGetYear()
         {
-            
-            var result = httpHelper.HttpPost("http://202.120.108.14/ecustedu/K_StudentQuery/K_TestTableDetail.aspx?key=0", Properties.Resources.TestPostData);
-            string rowPath = "//*[@id=\"Table1\"]";
+            var result = httpHelper.HttpGet(TestDetailUrl);
+            string rowPath = "//*[@id=\"ddlYearTerm\"]";
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(result);
             HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
-            List<TestTable> ls = new List<TestTable>();
-            if (rowAount!=null)
-            {
-               
-                var ClassName = string.Empty;                   
-                var TeachingClass = string.Empty;
-                var Classroom = string.Empty;
-                var Time = string.Empty;
-                var TestNature = string.Empty;
-                var Teacher = string.Empty;
+            List<string> ls = new List<string>();
+            if (rowAount != null)
+            {//*[@id="ddlYearTerm"]/option[2]
                 rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
-                HtmlNodeCollection content = rowAount.SelectNodes("//tr[5]//td[1]//table[1]//tr//td");
-                for (int i = 0; i < content.Count; i++)
+                HtmlNodeCollection content = rowAount.SelectNodes("//option");
+                foreach (var item in content)              
                 {
-                    if (i % 6 == 0)
-                    {
-                        ClassName = content[i].InnerText.Trim();
-                    }
-                    else if (i % 6 == 1)
-                    {
-                        TeachingClass = content[i].InnerText.Trim();
-                    }
-                    else if (i % 6 == 2)
-                    {
-                        Classroom = content[i].InnerText.Trim();
-                    }
-                    else if (i % 6 == 3)
-                    {
-                        Time = content[i].InnerText.Trim();
-                    }
-                    else if (i % 6 == 4)
-                    {
-                        TestNature = content[i].InnerText.Trim();
-                    }
-                    else if (i % 6 == 5)
-                    {
-                        Teacher = content[i].InnerText.Trim();
-                        ls.Add(new TestTable {Classroom=ClassName,TeachingClass=TeachingClass,ClassName=ClassName,Time=Time,TestNature=TestNature,Teacher=Teacher });
-                    }
+                    ls.Add(item.Attributes["value"].Value);
                 }
-                ls.RemoveAt(0);
-                Dispatcher.Invoke(new Action(()=>
-                {
-                    lvTest.ItemsSource = ls;
-                }));    
             }
-            else
-            {
-                return;
-            }
-            
+            this.Invoke(new Action(()=> {
+                cbYear.ItemsSource = ls;
+            }));
         }
-
-
-        private void tbControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void GetTestTabDetail()
         {
-            if (tbControl.SelectedIndex==2)
+            try
             {
-                           
+
+                var yearTerm = string.Empty;
+                this.Invoke(new Action(() =>
+                {
+                    yearTerm = cbYear.Text;
+                }));
+                var result = httpHelper.HttpPost(TestDetailUrl, Properties.Resources.TestPostData_Header + "&ddlYearTerm=" + yearTerm + "&" + Properties.Resources.TestPostData_Footer);
+                string rowPath = "//*[@id=\"Table1\"]";
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
+                List<TestTable> ls = new List<TestTable>();
+                if (rowAount != null)
+                {
+                    var ClassName = string.Empty;
+                    var TeachingClass = string.Empty;
+                    var Classroom = string.Empty;
+                    var Time = string.Empty;
+                    var TestNature = string.Empty;
+                    var Teacher = string.Empty;
+                    rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
+                    HtmlNodeCollection content = rowAount.SelectNodes("//tr[5]//td[1]//table[1]//tr//td");
+                    for (int i = 0; i < content.Count; i++)
+                    {
+                        if (i % 6 == 0)
+                        {
+                            ClassName = content[i].InnerText.Trim();
+                        }
+                        else if (i % 6 == 1)
+                        {
+                            TeachingClass = content[i].InnerText.Trim();
+                        }
+                        else if (i % 6 == 2)
+                        {
+                            Classroom = content[i].InnerText.Trim();
+                        }
+                        else if (i % 6 == 3)
+                        {
+                            Time = content[i].InnerText.Trim();
+                        }
+                        else if (i % 6 == 4)
+                        {
+                            TestNature = content[i].InnerText.Trim();
+                        }
+                        else if (i % 6 == 5)
+                        {
+                            Teacher = content[i].InnerText.Trim();
+                            ls.Add(new TestTable
+                            {
+                                Classroom = Classroom,
+                                TeachingClass = TeachingClass,
+                                ClassName = ClassName,
+                                Time = Time,
+                                TestNature = TestNature,
+                                Teacher = Teacher
+                            });
+                        }
+                    }
+                    ls.RemoveAt(0);
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        lvTest.ItemsSource = ls;
+                    }));
+                }
+                else
+                {
+                    return;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return;
+                Console.WriteLine(ex.ToString());
             }
+
+
         }
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
@@ -187,6 +226,16 @@ namespace ScoreQuery
             Thread t = new Thread(GetTestTabDetail);
             t.IsBackground = true;
             t.Start();
+        }
+
+        private void tbControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tbControl.SelectedIndex==2)
+            {
+                Thread t = new Thread(PreGetYear);
+                t.IsBackground = true;
+                t.Start();
+            }
         }
     }
 }

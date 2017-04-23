@@ -14,6 +14,7 @@ namespace ScoreQuery
         public MainWindow()
         {
             InitializeComponent();
+            
         }
         HttpHelper httpHelper = new HttpHelper();
         const string LoginUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_Default.aspx";

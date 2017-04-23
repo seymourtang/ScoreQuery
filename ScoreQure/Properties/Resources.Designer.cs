@@ -97,11 +97,20 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to __EVENTTARGET=&amp;__EVENTARGUMENT=&amp;__LASTFOCUS=&amp;__VIEWSTATE=%2FwEPDwULLTE2NTU5MjUyNDUPZBYCAgEPZBYCAgEPZBYIAgEPZBYCZg9kFgQCAQ8QZBAVDgnor7fpgInmi6kFMjAxNzEFMjAxNjIFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEFMjAxMzIFMjAxMzEFMjAxMjIFMjAxMjEFMjAxMTIFMjAxMTEVDgnor7fpgInmi6kFMjAxNzEFMjAxNjIFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEFMjAxMzIFMjAxMzEFMjAxMjIFMjAxMjEFMjAxMTIFMjAxMTEUKwMOZ2dnZ2dnZ2dnZ2dnZ2dkZAIIDxBkZBYBZmQCAg9kFgJmD2QWAmYPDxYCHgRUZXh0ZWRkAgMPZBYCZg9kFgZmDw8WAh8ABRHlrablj7fvvJoxMDE0MTM2N2RkAgIPDxYCHwAFEuWnk%2BW [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to btnSelect=%E6%9F%A5%E8%AF%A2&amp;RdbCourse=%E4%B8%AA%E4%BA%BA%E8%80%83%E8%AF%95%E8%A1%A8&amp;__EVENTVALIDATION=%2FwEWEwKnosvNCQLekp65DQKA%2BtHTAQKP%2BqX0CAKA%2BqX0CAKP%2BokJAoD6iQkCj%2FqdogsCgPqdogsCj%2FrhxgICgPrhxgICj%2Fr1mwoCgPr1mwoCj%2FrZvAUCgPrZvAUC2sfb1QYCuaHTqAgCj%2FnpnQ4CwZTn4wjTLfcvTVfX55m%2FAmiFXqb6s67%2FEQ%3D%3D.
         /// </summary>
-        internal static string TestPostData {
+        internal static string TestPostData_Footer {
             get {
-                return ResourceManager.GetString("TestPostData", resourceCulture);
+                return ResourceManager.GetString("TestPostData_Footer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to __EVENTTARGET=&amp;__EVENTARGUMENT=&amp;__LASTFOCUS=&amp;__VIEWSTATE=%2FwEPDwULLTE2NTU5MjUyNDUPZBYCAgEPZBYCAgEPZBYEAgEPZBYCZg9kFgQCAQ8QZBAVDgnor7fpgInmi6kFMjAxNzEFMjAxNjIFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEFMjAxMzIFMjAxMzEFMjAxMjIFMjAxMjEFMjAxMTIFMjAxMTEVDgnor7fpgInmi6kFMjAxNzEFMjAxNjIFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEFMjAxMzIFMjAxMzEFMjAxMjIFMjAxMjEFMjAxMTIFMjAxMTEUKwMOZ2dnZ2dnZ2dnZ2dnZ2dkZAIIDxBkZBYBZmQCBA9kFgJmD2QWAmYPPCsACwBkZG%2Bxh4GjYLWaC9xSbhtbEWSA%2BPUM.
+        /// </summary>
+        internal static string TestPostData_Header {
+            get {
+                return ResourceManager.GetString("TestPostData_Header", resourceCulture);
             }
         }
     }
