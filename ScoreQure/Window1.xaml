@@ -65,25 +65,23 @@
         <controls:MetroAnimatedSingleRowTabControl x:Name="tbControl" controls:TabControlHelper.IsUnderlined="True" Background="Transparent" controls:TabControlHelper.Underlined="TabPanel" SelectionChanged="tbControl_SelectionChanged" >
             <TabItem Header="成绩大表" controls:ControlsHelper.HeaderFontSize="25">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="12*"/>
-                    </Grid.ColumnDefinitions>
+                  
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="加权平均绩点" Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="16" Margin="0,10"/>
+                    
                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="Button_Click" Grid.Column="1" Margin="0,4"/>
                     <Line HorizontalAlignment="Stretch" 
-                      Grid.Row="1"
+                      Grid.Row="0"
                           VerticalAlignment="Bottom"
                           X1="0"
                           X2="1500"
                           Y1="0"
                           Y2="0"
                           Stroke="{DynamicResource HighlightBrush}"
-                          Fill="{DynamicResource HighlightBrush}" Grid.ColumnSpan="2" Margin="0,0,0,499"/>
+                          Fill="{DynamicResource HighlightBrush}"/>
                     <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
                                  x:Name="BigScoreProgress"                                
                                 Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Margin="186,10,466,10" />
@@ -104,7 +102,6 @@
                         <Grid Grid.Column="4" x:Name="C4"/>
                         <Grid Grid.Column="5" x:Name="C5"/>
                         <Grid Grid.Column="6" x:Name="C6"/>
-                        <Grid Grid.Column="7" x:Name="C7"/>
                         <ListView x:Name="lv"
                                 Grid.ColumnSpan="8"
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -131,34 +128,52 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <ComboBox x:Name="cbTerm" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Width="150" materialDesign:HintAssist.Hint="学期学年" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
-                    <Button x:Name="btnTerm" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="btnTest_Click"/>
+                    <Line HorizontalAlignment="Stretch" 
+                      Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          X1="0"
+                          X2="1500"
+                          Y1="0"
+                          Y2="0"
+                          Stroke="{DynamicResource HighlightBrush}"
+                          Fill="{DynamicResource HighlightBrush}"/>
+                    <Button x:Name="btnTerm" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="btnTerm_Click"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.8*"/>
-                            <ColumnDefinition Width="0.7*"/>
-                            <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="0.5*"/>
                             <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" x:Name="A0"/>
-                        <Grid Grid.Column="1" x:Name="A1"/>
-                        <Grid Grid.Column="2" x:Name="A2"/>
-                        <Grid Grid.Column="3" x:Name="A3"/>
-                        <Grid Grid.Column="4" x:Name="A4"/>
-                        <Grid Grid.Column="5" x:Name="A5"/>
+                        <Grid Grid.Column="0" x:Name="t0"/>
+                        <Grid Grid.Column="1" x:Name="t1"/>
+                        <Grid Grid.Column="2" x:Name="t2"/>
+                        <Grid Grid.Column="3" x:Name="t3"/>
+                        <Grid Grid.Column="4" x:Name="t4"/>
+                        <Grid Grid.Column="5" x:Name="t5"/>
+                        <Grid Grid.Column="6" x:Name="t6"/>
+                        <Grid Grid.Column="7" x:Name="t7"/>
+                        <Grid Grid.Column="8" x:Name="t8"/>
                         <ListView x:Name="lvTerm"
-                                Grid.ColumnSpan="6"
+                                Grid.ColumnSpan="9"
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                IsSynchronizedWithCurrentItem="True" FontFamily="Microsoft YaHei UI Light" FontSize="14">
+                                 FontFamily="Microsoft YaHei UI Light" FontSize="14">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=T0}"/>
-                                    <GridViewColumn Header="教学班/考试班" DisplayMemberBinding="{Binding TeachingClass}" Width="{Binding ActualWidth, ElementName=T1}"/>
-                                    <GridViewColumn Header="考试教室" DisplayMemberBinding="{Binding Classroom}" Width="{Binding ActualWidth, ElementName=T2}"/>
-                                    <GridViewColumn Header="考试时间" DisplayMemberBinding="{Binding Time}" Width="{Binding ActualWidth, ElementName=T3}"/>
-                                    <GridViewColumn Header="考试性质" DisplayMemberBinding="{Binding TestNature}" Width="{Binding ActualWidth, ElementName=T4}"/>
-                                    <GridViewColumn Header="主考老师" DisplayMemberBinding="{Binding Teacher}" Width="{Binding ActualWidth, ElementName=T5}"/>
+                                    <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=t0}"/>
+                                    <GridViewColumn Header="平台类别" DisplayMemberBinding="{Binding PlatformClass}" Width="{Binding ActualWidth, ElementName=t1}"/>
+                                    <GridViewColumn Header="修读性质" DisplayMemberBinding="{Binding NatureofReading}" Width="{Binding ActualWidth, ElementName=t2}"/>
+                                    <GridViewColumn Header="课程性质" DisplayMemberBinding="{Binding ClassNature}" Width="{Binding ActualWidth, ElementName=t3}"/>
+                                    <GridViewColumn Header="平时成绩" DisplayMemberBinding="{Binding DailyScore}" Width="{Binding ActualWidth, ElementName=t4}"/>
+                                    <GridViewColumn Header="卷面成绩" DisplayMemberBinding="{Binding ExaminationScore}" Width="{Binding ActualWidth, ElementName=t5}"/>
+                                    <GridViewColumn Header="总成绩" DisplayMemberBinding="{Binding FinalScore}" Width="{Binding ActualWidth, ElementName=t6}"/>
+                                    <GridViewColumn Header="学分" DisplayMemberBinding="{Binding Credit}" Width="{Binding ActualWidth, ElementName=t7}"/>
+                                    <GridViewColumn Header="绩点" DisplayMemberBinding="{Binding GradePoint}" Width="{Binding ActualWidth, ElementName=t8}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -172,6 +187,15 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <ComboBox x:Name="cbYear" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Width="150" materialDesign:HintAssist.Hint="学期学年" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                    <Line HorizontalAlignment="Stretch" 
+                      Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          X1="0"
+                          X2="1500"
+                          Y1="0"
+                          Y2="0"
+                          Stroke="{DynamicResource HighlightBrush}"
+                          Fill="{DynamicResource HighlightBrush}"  />
                     <Button x:Name="btnTest" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="btnTest_Click"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

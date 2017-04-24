@@ -1,6 +1,8 @@
 ﻿using HtmlAgilityPack;
 using Http;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using ScoreQuery.Http;
 using ScoreQuery.Models;
 using System;
 using System.Collections.Generic;
@@ -34,8 +36,7 @@ namespace ScoreQuery
             };
         }
         HttpHelper httpHelper = new HttpHelper();
-        const string BigScoreUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_BigScoreTableDetail.aspx?key=0";
-        const string TestDetailUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_TestTableDetail.aspx?key=0";
+        #region 获取成绩大表
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -48,17 +49,17 @@ namespace ScoreQuery
 
         private void GetBigScore()
         {
-            List<BigScore> bigScore = new List<BigScore>();
-            var result = httpHelper.HttpGet(BigScoreUrl);
-            string rowPath = "//*[@id=\"Table1\"]";
-            HtmlDocument doc = new HtmlDocument()
+            try
             {
-                OptionReadEncoding = false
-            };
-            doc.LoadHtml(result);
-            HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
-            if (rowAount != null)
-            {
+                List<BigScore> bigScore = new List<BigScore>();
+                var result = httpHelper.HttpGet(ServiceURL.BigScoreUrl);
+                string rowPath = "//*[@id=\"Table1\"]";
+                HtmlDocument doc = new HtmlDocument()
+                {
+                    OptionReadEncoding = false
+                };
+                doc.LoadHtml(result);
+                HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
                 rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
                 HtmlNodeCollection name = rowAount.SelectNodes("//table");
                 var str = string.Empty;
@@ -91,7 +92,7 @@ namespace ScoreQuery
                     }
                     else if (i % 7 == 4)
                     {
-                        Grade = dt[i].InnerText.Trim(); 
+                        Grade = dt[i].InnerText.Trim();
                     }
                     else if (i % 7 == 5)
                     {
@@ -100,8 +101,15 @@ namespace ScoreQuery
                     else if (i % 7 == 6)
                     {
                         GradePoint = dt[i].InnerText.Trim();
-                        bigScore.Add(new BigScore {
-                            Term = Term, ClassName = ClassName, ClassNature = ClassNature, Credit = Credit, Grade = Grade, Platform = Platform, GradePoint = GradePoint
+                        bigScore.Add(new BigScore
+                        {
+                            Term = Term,
+                            ClassName = ClassName,
+                            ClassNature = ClassNature,
+                            Credit = Credit,
+                            Grade = Grade,
+                            Platform = Platform,
+                            GradePoint = GradePoint
                         });
                     }
 
@@ -110,33 +118,38 @@ namespace ScoreQuery
                 this.Invoke(new Action(() =>
                 {
                     lv.ItemsSource = bigScore;
+                }));
 
+            }
+            catch (Exception ex)
+            {
+                this.Invoke(new Action(async () =>
+                {
+                    await this.ShowMessageAsync("错误", ex.ToString());
                 }));
             }
-            else
-            {
-                Console.WriteLine("NULL");
-            }
         }
-
+#endregion
+        #region 获取指定学期考试表
         private void PreGetYear()
         {
-            var result = httpHelper.HttpGet(TestDetailUrl);
+            var result = httpHelper.HttpGet(ServiceURL.TestDetailUrl);
             string rowPath = "//*[@id=\"ddlYearTerm\"]";
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(result);
             HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
             List<string> ls = new List<string>();
             if (rowAount != null)
-            {//*[@id="ddlYearTerm"]/option[2]
+            {
                 rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
                 HtmlNodeCollection content = rowAount.SelectNodes("//option");
-                foreach (var item in content)              
+                foreach (var item in content)
                 {
                     ls.Add(item.Attributes["value"].Value);
                 }
             }
-            this.Invoke(new Action(()=> {
+            this.Invoke(new Action(() =>
+            {
                 cbYear.ItemsSource = ls;
             }));
         }
@@ -144,98 +157,239 @@ namespace ScoreQuery
         {
             try
             {
-
                 var yearTerm = string.Empty;
-                this.Invoke(new Action(() =>
-                {
-                    yearTerm = cbYear.Text;
+                this.Invoke(new Action( () =>
+                {             
+                      yearTerm = cbYear.Text;
                 }));
-                var result = httpHelper.HttpPost(TestDetailUrl, Properties.Resources.TestPostData_Header + "&ddlYearTerm=" + yearTerm + "&" + Properties.Resources.TestPostData_Footer);
+                var result = httpHelper.HttpPost(ServiceURL.TestDetailUrl, Properties.Resources.TestPostData_Header + "&ddlYearTerm=" + yearTerm + "&" + Properties.Resources.TestPostData_Footer);
                 string rowPath = "//*[@id=\"Table1\"]";
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(result);
                 HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
                 List<TestTable> ls = new List<TestTable>();
-                if (rowAount != null)
+                var ClassName = string.Empty;
+                var TeachingClass = string.Empty;
+                var Classroom = string.Empty;
+                var Time = string.Empty;
+                var TestNature = string.Empty;
+                var Teacher = string.Empty;
+                rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
+                HtmlNodeCollection content = rowAount.SelectNodes("//tr[5]//td[1]//table[1]//tr//td");
+                for (int i = 0; i < content.Count; i++)
                 {
-                    var ClassName = string.Empty;
-                    var TeachingClass = string.Empty;
-                    var Classroom = string.Empty;
-                    var Time = string.Empty;
-                    var TestNature = string.Empty;
-                    var Teacher = string.Empty;
-                    rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
-                    HtmlNodeCollection content = rowAount.SelectNodes("//tr[5]//td[1]//table[1]//tr//td");
-                    for (int i = 0; i < content.Count; i++)
+                    if (i % 6 == 0)
                     {
-                        if (i % 6 == 0)
-                        {
-                            ClassName = content[i].InnerText.Trim();
-                        }
-                        else if (i % 6 == 1)
-                        {
-                            TeachingClass = content[i].InnerText.Trim();
-                        }
-                        else if (i % 6 == 2)
-                        {
-                            Classroom = content[i].InnerText.Trim();
-                        }
-                        else if (i % 6 == 3)
-                        {
-                            Time = content[i].InnerText.Trim();
-                        }
-                        else if (i % 6 == 4)
-                        {
-                            TestNature = content[i].InnerText.Trim();
-                        }
-                        else if (i % 6 == 5)
-                        {
-                            Teacher = content[i].InnerText.Trim();
-                            ls.Add(new TestTable
-                            {
-                                Classroom = Classroom,
-                                TeachingClass = TeachingClass,
-                                ClassName = ClassName,
-                                Time = Time,
-                                TestNature = TestNature,
-                                Teacher = Teacher
-                            });
-                        }
+                        ClassName = content[i].InnerText.Trim();
                     }
-                    ls.RemoveAt(0);
-                    Dispatcher.Invoke(new Action(() =>
+                    else if (i % 6 == 1)
                     {
-                        lvTest.ItemsSource = ls;
-                    }));
+                        TeachingClass = content[i].InnerText.Trim();
+                    }
+                    else if (i % 6 == 2)
+                    {
+                        Classroom = content[i].InnerText.Trim();
+                    }
+                    else if (i % 6 == 3)
+                    {
+                        Time = content[i].InnerText.Trim();
+                    }
+                    else if (i % 6 == 4)
+                    {
+                        TestNature = content[i].InnerText.Trim();
+                    }
+                    else if (i % 6 == 5)
+                    {
+                        Teacher = content[i].InnerText.Trim();
+                        ls.Add(new TestTable
+                        {
+                            Classroom = Classroom,
+                            TeachingClass = TeachingClass,
+                            ClassName = ClassName,
+                            Time = Time,
+                            TestNature = TestNature,
+                            Teacher = Teacher
+                        });
+                    }
                 }
-                else
+                ls.RemoveAt(0);
+                Dispatcher.Invoke(new Action(() =>
                 {
-                    return;
-                }
+                    lvTest.ItemsSource = ls;
+                }));
+
             }
-            catch(Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.ToString());
+                this.Invoke(new Action(async () =>
+                {
+                    await this.ShowMessageAsync("错误", "学期未选择或学期错误");
+                }));
             }
-
-
         }
-
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
-            Thread t = new Thread(GetTestTabDetail);
-            t.IsBackground = true;
+            Thread t = new Thread(GetTestTabDetail)
+            {
+                IsBackground = true
+            };
             t.Start();
         }
+        #endregion
+        #region 获取指定学期成绩
+        private void PreGetTermYear()
+        {
+            try
+            {
+                var result = httpHelper.HttpGet(ServiceURL.TermScoreUrl);
+                string rowPath = "//*[@id=\"ddlYearTerm\"]";
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
+                List<string> ls = new List<string>();
+                rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
+                HtmlNodeCollection content = rowAount.SelectNodes("//option");
+                foreach (var item in content)
+                {
+                    ls.Add(item.Attributes["value"].Value);
+                }
+                ls.RemoveAt(0);
 
+                this.Invoke(new Action(() =>
+                {
+                    cbTerm.ItemsSource = ls;
+                }));
+            }
+            catch (Exception ex)
+            {
+                this.Invoke(new Action(async () =>
+                {
+                    await this.ShowMessageAsync("错误", ex.ToString());
+                }));
+            }
+        }
+
+        private void GetTermScore()
+        {
+            try
+            {
+                var yearTerm = string.Empty;
+                this.Invoke(new Action( () =>
+                {                                                                                    
+                        yearTerm = cbTerm.Text;                    
+                }));
+                var result = httpHelper.HttpPost(ServiceURL.TermScoreUrl, Properties.Resources.TermPostData_Header + "&ddlYearTerm=" + yearTerm + Properties.Resources.TermPostData_Footer);
+                string rowPath = "//*[@id=\"Table1\"]";
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                HtmlNode rowAount = doc.DocumentNode.SelectSingleNode(rowPath);
+                List<TermScore> ls = new List<TermScore>();
+                var ClassName = string.Empty;
+                var PlatformClass = string.Empty;
+                var NatureofReading = string.Empty;
+                var ClassNature = string.Empty;
+                var DailyScore = string.Empty;
+                var ExaminationScore = string.Empty;
+                var FinalScore = string.Empty;
+                var Credit = string.Empty;
+                var GradePoint = string.Empty;
+                rowAount = HtmlNode.CreateNode(rowAount.OuterHtml);
+                HtmlNodeCollection content = rowAount.SelectNodes("//tr//td//tr//td");
+                for (int i = 0; i < content.Count; i++)
+                {
+                    if (i % 11 == 0)
+                    {
+                        ClassName = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 1)
+                    {
+                        PlatformClass = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 4)
+                    {
+                        NatureofReading = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 5)
+                    {
+                        ClassNature = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 6)
+                    {
+                        DailyScore = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 7)
+                    {
+                        ExaminationScore = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 8)
+                    {
+                        FinalScore = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 9)
+                    {
+                        Credit = content[i].InnerText.Trim();
+                    }
+                    else if (i % 11 == 10)
+                    {
+                        GradePoint = content[i].InnerText.Trim();
+                        ls.Add(new TermScore
+                        {
+                            ClassName = ClassName,
+                            PlatformClass = PlatformClass,
+                            NatureofReading = NatureofReading,
+                            ClassNature = ClassNature,
+                            DailyScore = DailyScore,
+                            ExaminationScore = ExaminationScore,
+                            FinalScore = FinalScore,
+                            Credit = Credit,
+                            GradePoint = GradePoint
+                        });
+                    }
+                }
+                ls.RemoveAt(0);
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    lvTerm.ItemsSource = ls;
+                }));
+            }
+            catch (Exception)
+            {
+                this.Invoke(new Action(async () =>
+                {
+                    await this.ShowMessageAsync("错误", "学期未选择");
+                }));
+            }
+        }
+        private void btnTerm_Click(object sender, RoutedEventArgs e)
+        {
+            Thread t = new Thread(GetTermScore)
+            {
+                IsBackground = true
+            };
+            t.Start();
+        }
+        #endregion
+
+        #region 选项卡的预获取信息
         private void tbControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tbControl.SelectedIndex==2)
+            if (tbControl.SelectedIndex == 1)
             {
-                Thread t = new Thread(PreGetYear);
-                t.IsBackground = true;
+                Thread t = new Thread(PreGetTermYear)
+                {
+                    IsBackground = true
+                };
+                t.Start();
+            }
+            else if (tbControl.SelectedIndex == 2)
+            {
+                Thread t = new Thread(PreGetYear)
+                {
+                    IsBackground = true
+                };
                 t.Start();
             }
         }
+#endregion
     }
 }

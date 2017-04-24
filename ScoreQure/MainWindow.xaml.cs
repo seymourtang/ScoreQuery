@@ -1,5 +1,7 @@
 ﻿using Http;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using ScoreQuery.Http;
 using System;
 using System.Configuration;
 using System.Threading;
@@ -16,9 +18,7 @@ namespace ScoreQuery
             InitializeComponent();
             
         }
-        HttpHelper httpHelper = new HttpHelper();
-        const string LoginUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_Default.aspx";
-        const string StudentLoginPostUrl = "http://202.120.108.14/ecustedu/K_StudentQuery/K_StudentQueryLogin.aspx";
+        HttpHelper httpHelper = new HttpHelper();    
         static string __EVENTTARGET = Properties.Resources.__EVENTTARGET;
         static string __EVENTARGUMENT = Properties.Resources.__EVENTARGUMENT;
         static string __VIEWSTATE = Properties.Resources.__VIEWSTATE;
@@ -59,7 +59,11 @@ namespace ScoreQuery
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
-
+        /// <summary>
+        /// 以异步的方式登录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
             btLogin.Content = "正在登录";
@@ -70,27 +74,44 @@ namespace ScoreQuery
             t.Start();
             btLogin.Content = "登录";
         }
-
+        /// <summary>
+        /// 登录的具体方法
+        /// </summary>
         private void DoLogin()
         {
-            string postData = string.Empty;
-            this.Invoke(new Action(()=> {             
-                postData= string.Format("__EVENTTARGET={0}&__EVENTARGUMENT={1}&__VIEWSTATE={2}&TxtStudentId={3}&TxtPassword={4}&BtnLogin={5}&__EVENTVALIDATION={6}", __EVENTTARGET, __EVENTARGUMENT, __VIEWSTATE, tbStudentNo.Text, tbPassword.Password, BtnLogin, __EVENTVALIDATION);
-            }));         
-            var result = httpHelper.HttpPost(StudentLoginPostUrl,postData);
-            if (result.Contains("您好"))
+            try
             {
-                this.Invoke(new Action(()=> {
-                    Window1 page = new Window1();
-                    Application.Current.MainWindow = page;
-                    this.Close();
-                    page.Show();
+                string postData = string.Empty;
+                this.Invoke(new Action(() =>
+                {
+                    postData = string.Format("__EVENTTARGET={0}&__EVENTARGUMENT={1}&__VIEWSTATE={2}&TxtStudentId={3}&TxtPassword={4}&BtnLogin={5}&__EVENTVALIDATION={6}", __EVENTTARGET, __EVENTARGUMENT, __VIEWSTATE, tbStudentNo.Text, tbPassword.Password, BtnLogin, __EVENTVALIDATION);
                 }));
-                
+                var result = httpHelper.HttpPost(ServiceURL.StudentLoginPostUrl, postData);
+                if (result.Contains("您好"))
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        Window1 page = new Window1();
+                        Application.Current.MainWindow = page;
+                        this.Close();
+                        page.Show();
+                    }));
+
+                }
+                else
+                {
+                    this.Invoke(new Action(async () =>
+                    {
+                        await this.ShowMessageAsync("登录失败", "请检查账号密码!");
+                    }));
+                }
             }
-            else
+            catch(Exception)
             {
-                MessageBox.Show("登录失败");
+                this.Invoke(new Action(async () =>
+                {
+                    await this.ShowMessageAsync("错误", "请检查网络连接!");
+                }));
             }
         }
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)

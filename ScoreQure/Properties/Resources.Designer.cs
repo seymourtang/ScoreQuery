@@ -97,6 +97,24 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;btnSelect=%E6%9F%A5%E8%AF%A2&amp;__EVENTVALIDATION=%2FwEWCgKLm77%2BBQKC5sFXApf3trkEAtjpwosFAoD6pfQIAo%2F6iQkCgPqJCQKP%2Bp2iCwKA%2Bp2iCwLax9vVBuDvhWmvSSKen8kat%2Bw%2BroqZ42e3.
+        /// </summary>
+        internal static string TermPostData_Footer {
+            get {
+                return ResourceManager.GetString("TermPostData_Footer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to __EVENTTARGET=&amp;__EVENTARGUMENT=&amp;__VIEWSTATE=%2FwEPDwUKLTM1MDcwMDg1MQ9kFgICAQ9kFgICAQ9kFghmD2QWAmYPZBYCAgMPDxYEHgRUZXh0BQzlrablubTlrabmnJ8eB0VuYWJsZWRoZGQCAQ9kFgJmD2QWAgIBDxAPFgYeDURhdGFUZXh0RmllbGQFCFRlcm1OYW1lHg5EYXRhVmFsdWVGaWVsZAUIWWVhclRlcm0eC18hRGF0YUJvdW5kZ2QQFQYV4oCU4oCU6K%2B36YCJ5oup4oCU4oCUFjIwMTYtMjAxN%2BWtpuW5tDHlrabmnJ8WMjAxNS0yMDE25a2m5bm0MuWtpuacnxYyMDE1LTIwMTblrablubQx5a2m5pyfFjIwMTQtMjAxNeWtpuW5tDLlrabmnJ8WMjAxNC0yMDE15a2m5bm0MeWtpuacnxUGATAFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEUKwMGZ2dnZ2 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TermPostData_Header {
+            get {
+                return ResourceManager.GetString("TermPostData_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to btnSelect=%E6%9F%A5%E8%AF%A2&amp;RdbCourse=%E4%B8%AA%E4%BA%BA%E8%80%83%E8%AF%95%E8%A1%A8&amp;__EVENTVALIDATION=%2FwEWEwKnosvNCQLekp65DQKA%2BtHTAQKP%2BqX0CAKA%2BqX0CAKP%2BokJAoD6iQkCj%2FqdogsCgPqdogsCj%2FrhxgICgPrhxgICj%2Fr1mwoCgPr1mwoCj%2FrZvAUCgPrZvAUC2sfb1QYCuaHTqAgCj%2FnpnQ4CwZTn4wjTLfcvTVfX55m%2FAmiFXqb6s67%2FEQ%3D%3D.
         /// </summary>
         internal static string TestPostData_Footer {

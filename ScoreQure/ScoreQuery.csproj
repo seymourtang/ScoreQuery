@@ -107,7 +107,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Http\ServiceURL.cs" />
     <Compile Include="Models\BigScore.cs" />
+    <Compile Include="Models\TermScore.cs" />
     <Compile Include="Models\TestTable.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>

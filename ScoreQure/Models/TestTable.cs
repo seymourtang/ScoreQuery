@@ -8,11 +8,29 @@ namespace ScoreQuery.Models
 {
     public class TestTable
     {
-        public string ClassName { get; set; }//课程名称
-        public string TeachingClass { get; set; }//教学班级
-        public string Classroom { get; set; }//考试教室
-        public string Time { get; set; }//考试事件
-        public string TestNature { get; set; }//考试性质
-        public string Teacher { get; set; }//主考老师
+        /// <summary>
+        /// 课程名称
+        /// </summary>
+        public string ClassName { get; set; }
+        /// <summary>
+        /// 教学班级
+        /// </summary>
+        public string TeachingClass { get; set; }
+        /// <summary>
+        /// 考试教室
+        /// </summary>
+        public string Classroom { get; set; }
+        /// <summary>
+        /// 考试时间
+        /// </summary>
+        public string Time { get; set; }
+        /// <summary>
+        /// 考试性质
+        /// </summary>
+        public string TestNature { get; set; }
+        /// <summary>
+        /// 主考老师
+        /// </summary>
+        public string Teacher { get; set; }
     }
 }
