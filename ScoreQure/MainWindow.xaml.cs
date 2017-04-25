@@ -67,12 +67,13 @@ namespace ScoreQuery
         private void btLogin_Click(object sender, RoutedEventArgs e)
         {
             btLogin.Content = "正在登录";
-            Thread t = new Thread(DoLogin)
+            btLogin.IsEnabled = false;
+             Thread t = new Thread(DoLogin)
             {
                 IsBackground = true
             };
             t.Start();
-            btLogin.Content = "登录";
+            
         }
         /// <summary>
         /// 登录的具体方法
@@ -103,6 +104,8 @@ namespace ScoreQuery
                     this.Invoke(new Action(async () =>
                     {
                         await this.ShowMessageAsync("登录失败", "请检查账号密码!");
+                        btLogin.Content = "登录";
+                        btLogin.IsEnabled = true;
                     }));
                 }
             }
@@ -111,6 +114,8 @@ namespace ScoreQuery
                 this.Invoke(new Action(async () =>
                 {
                     await this.ShowMessageAsync("错误", "请检查网络连接!");
+                    btLogin.Content = "登录";
+                    btLogin.IsEnabled = true;
                 }));
             }
         }
