@@ -12,7 +12,7 @@
         TextElement.FontSize="13"
         BorderThickness="0" 
         GlowBrush="Black"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Language="zh-CN"    
         TextOptions.TextFormattingMode="Ideal" 
@@ -22,7 +22,7 @@
         MinHeight="350" MinWidth="305"
         MaxHeight="350" MaxWidth="305"
         Loaded="MetroWindow_Loaded"
-        Title="华东理工大学教务信息查询" Height="350" Width="305">
+        Title="华东理工大学教务信息查询" Height="350" Width="305" Icon="logo.ico" ShowIconOnTitleBar="True" TitleAlignment="Center">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

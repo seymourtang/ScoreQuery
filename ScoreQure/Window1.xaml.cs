@@ -6,6 +6,7 @@ using ScoreQuery.Http;
 using ScoreQuery.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,7 +40,8 @@ namespace ScoreQuery
         #region 获取成绩大表
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            BigScoreBtn.Content = "获取中...";
+            BigScoreBtn.IsEnabled = false;
             Thread t = new Thread(GetBigScore)
             {
                 IsBackground = true
@@ -118,6 +120,8 @@ namespace ScoreQuery
                 this.Invoke(new Action(() =>
                 {
                     lv.ItemsSource = bigScore;
+                    BigScoreBtn.Content = "获取";
+                    BigScoreBtn.IsEnabled = true;
                 }));
 
             }
@@ -126,6 +130,8 @@ namespace ScoreQuery
                 this.Invoke(new Action(async () =>
                 {
                     await this.ShowMessageAsync("错误", ex.ToString());
+                    BigScoreBtn.Content = "获取";
+                    BigScoreBtn.IsEnabled = true;
                 }));
             }
         }
@@ -216,6 +222,8 @@ namespace ScoreQuery
                 Dispatcher.Invoke(new Action(() =>
                 {
                     lvTest.ItemsSource = ls;
+                    btnTest.Content = "获取";
+                    btnTest.IsEnabled = true;
                 }));
 
             }
@@ -224,11 +232,15 @@ namespace ScoreQuery
                 this.Invoke(new Action(async () =>
                 {
                     await this.ShowMessageAsync("错误", "学期未选择或学期错误");
+                    btnTest.Content = "获取";
+                    btnTest.IsEnabled = true;
                 }));
             }
         }
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
+            btnTest.Content = "获取中...";
+            btnTest.IsEnabled = false;
             Thread t = new Thread(GetTestTabDetail)
             {
                 IsBackground = true
@@ -258,6 +270,7 @@ namespace ScoreQuery
                 this.Invoke(new Action(() =>
                 {
                     cbTerm.ItemsSource = ls;
+                    
                 }));
             }
             catch (Exception ex)
@@ -350,6 +363,8 @@ namespace ScoreQuery
                 Dispatcher.Invoke(new Action(() =>
                 {
                     lvTerm.ItemsSource = ls;
+                    btnTerm.Content = "获取";
+                    btnTerm.IsEnabled = true;
                 }));
             }
             catch (Exception)
@@ -357,11 +372,15 @@ namespace ScoreQuery
                 this.Invoke(new Action(async () =>
                 {
                     await this.ShowMessageAsync("错误", "学期未选择");
+                    btnTerm.Content = "获取";
+                    btnTerm.IsEnabled = true;
                 }));
             }
         }
         private void btnTerm_Click(object sender, RoutedEventArgs e)
         {
+            btnTerm.Content = "获取中...";
+            btnTerm.IsEnabled = false;
             Thread t = new Thread(GetTermScore)
             {
                 IsBackground = true
@@ -390,6 +409,27 @@ namespace ScoreQuery
                 t.Start();
             }
         }
-#endregion
+        #endregion
+
+        private void EmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("mailto://tangxianmeng@live.com");
+        }
+
+        private void WeiboButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("http://weibo.com/tangxianmeng");
+        }
+
+
+        private void GitHubButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/seymourtang");
+        }
+
+        private void TwitterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://twitter.com/Tangxianmeng");
+        }
     }
 }
