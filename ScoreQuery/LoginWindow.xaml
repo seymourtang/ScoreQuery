@@ -1,0 +1,63 @@
+﻿<controls:MetroWindow x:Class="ScoreQuery.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"    
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        WindowTransitionsEnabled="False"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        BorderThickness="0" 
+        GlowBrush="Black"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Language="zh-CN"    
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"          
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        MinHeight="350" MinWidth="305"
+        MaxHeight="350" MaxWidth="305"
+        Loaded="MetroWindow_Loaded"
+        Title="华东理工大学教务信息查询" Height="350" Width="305" Icon="logo.ico" ShowIconOnTitleBar="True" TitleAlignment="Center">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon  Kind="AccountBox" Height="30" Width="30" VerticalAlignment="Center" />
+                <TextBox x:Name="tbStudentNo"
+                         Margin="5,0,0,0"
+                         VerticalAlignment="Center"
+                         Width="130"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+				    materialDesign:HintAssist.Hint="输入学号">
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                <materialDesign:PackIcon  Kind="Key" Height="30" Width="30" VerticalAlignment="Center" />
+                <PasswordBox x:Name="tbPassword"
+                         Margin="5,0,0,0"
+                         VerticalAlignment="Center"
+                         Width="130"                      
+                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+				    materialDesign:HintAssist.Hint="输入密码">
+                </PasswordBox>
+            </StackPanel>
+            <CheckBox x:Name="isRemind" Margin="0,15,0,0" Content="记住账号和密码"/>
+            <Grid Margin="0,20,0,0">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}"                                  
+                        HorizontalAlignment="Stretch"
+                    x:Name="btLogin"
+                    Click="btLogin_Click"
+                    ToolTip="点击登录" Content="登录"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

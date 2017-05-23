@@ -3,61 +3,317 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"    
+        xmlns:local="clr-namespace:ScoreQuery"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         WindowTransitionsEnabled="False"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        BorderThickness="0" 
+        BorderThickness="0.5"
         GlowBrush="Black"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Language="zh-CN"    
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"          
-        Background="{DynamicResource MaterialDesignPaper}"
+        TextOptions.TextRenderingMode="Auto"    
         FontFamily="{DynamicResource MaterialDesignFont}"
-        MinHeight="350" MinWidth="305"
-        MaxHeight="350" MaxWidth="305"
-        Loaded="MetroWindow_Loaded"
-        Title="华东理工大学教务信息查询" Height="350" Width="305" Icon="logo.ico" ShowIconOnTitleBar="True" TitleAlignment="Center">
+        Title="华东理工大学教务处信息查询" Height="610" Width="960" Icon="logo.ico" TitleAlignment="Center" WindowTitleBrush="{DynamicResource AccentColorBrush}" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Foreground="{x:Null}">
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button x:Name="BtnAbout" Content="关于"
+                     ToolTip="查看关于"/>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Header="关于" 
+                         Theme="Accent"                      
+                         x:Name="Flyout" Position="Right" Width="240" Background="{DynamicResource AccentColorBrush2}" Foreground="{DynamicResource AccentSelectedColorBrush}">
+                <!-- Your custom content here -->
+                <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" 
+                           Width="200"
+                           TextWrapping="Wrap"
+                       VerticalAlignment="Top" FontFamily="Microsoft YaHei UI Light">             
+                            本程序基于微软的WPF开发                       
+                     <LineBreak/>
+                     <LineBreak/>
+                        WPF（Windows Presentation Foundation）是微软推出的基于Windows Vista的用户界面框架，属于.NET Framework 3.0的一部分。它提供了统一的编程模型、语言和框架，真正做到了分离界面设计人员与开发人员的工作；同时它提供了全新的多媒体交互用户图形界面。
+                        <LineBreak/>
+                     <LineBreak/>
+                     <LineBreak/>    
+                     用到的第三方开源库：
+                    <LineBreak/>
+                    • MahApps.Metro.1.5.0
+                    <LineBreak/>
+                    • HtmlAgilityPack.1.4.9.5
+                    <LineBreak/>
+                    • MaterialDesignColors.1.1.3
+                    <LineBreak/>
+                    • MaterialDesignThemes.2.3.0.823
+                </TextBlock>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon  Kind="AccountBox" Height="30" Width="30" VerticalAlignment="Center" />
-                <TextBox x:Name="tbStudentNo"
-                         Margin="5,0,0,0"
-                         VerticalAlignment="Center"
-                         Width="130"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-				    materialDesign:HintAssist.Hint="输入学号">
-                </TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Stretch">
-                <materialDesign:PackIcon  Kind="Key" Height="30" Width="30" VerticalAlignment="Center" />
-                <PasswordBox x:Name="tbPassword"
-                         Margin="5,0,0,0"
-                         VerticalAlignment="Center"
-                         Width="130"                      
-                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-				    materialDesign:HintAssist.Hint="输入密码">
-                </PasswordBox>
-            </StackPanel>
-            <CheckBox x:Name="isRemind" Margin="0,15,0,0" Content="记住账号和密码"/>
-            <Grid Margin="0,20,0,0">
-                <Button Style="{StaticResource MaterialDesignRaisedButton}"                                  
-                        HorizontalAlignment="Stretch"
-                    x:Name="btLogin"
-                    Click="btLogin_Click"
-                    ToolTip="点击登录" Content="登录"/>
-            </Grid>
-        </StackPanel>
+        <controls:MetroAnimatedSingleRowTabControl x:Name="tbControl" controls:TabControlHelper.IsUnderlined="True" Background="Transparent" controls:TabControlHelper.Underlined="TabPanel" SelectionChanged="tbControl_SelectionChanged" >
+            <TabItem Header="成绩大表" controls:ControlsHelper.HeaderFontSize="25">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="加权平均绩点" Style="{StaticResource MaterialDesignHeadlineTextBlock}" FontSize="16" Margin="0,10"/>
+                    <Button x:Name="BigScoreBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="Button_Click" Grid.Column="1" Margin="0,4"/>
+                    <Line HorizontalAlignment="Stretch" 
+                      Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          X1="0"
+                          X2="1500"
+                          Y1="0"
+                          Y2="0"
+                          Stroke="{DynamicResource HighlightBrush}"
+                          Fill="{DynamicResource HighlightBrush}"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
+                                 x:Name="BigScoreProgress"                                
+                                Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Margin="186,10,466,10" />
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" x:Name="C0"/>
+                        <Grid Grid.Column="1" x:Name="C1"/>
+                        <Grid Grid.Column="2" x:Name="C2"/>
+                        <Grid Grid.Column="3" x:Name="C3"/>
+                        <Grid Grid.Column="4" x:Name="C4"/>
+                        <Grid Grid.Column="5" x:Name="C5"/>
+                        <Grid Grid.Column="6" x:Name="C6"/>
+                        <ListView x:Name="lv"
+                                Grid.ColumnSpan="8"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                 FontFamily="Microsoft YaHei UI Light" FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="学期" DisplayMemberBinding="{Binding Term}" Width="{Binding ActualWidth, ElementName=C0}"/>
+                                    <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=C1}"/>
+                                    <GridViewColumn Header="课程性质" DisplayMemberBinding="{Binding ClassNature}" Width="{Binding ActualWidth, ElementName=C2}"/>
+                                    <GridViewColumn Header="平台类别" DisplayMemberBinding="{Binding Platform}" Width="{Binding ActualWidth, ElementName=C3}"/>
+                                    <GridViewColumn Header="成绩" DisplayMemberBinding="{Binding Grade}" Width="{Binding ActualWidth, ElementName=C4}"/>
+                                    <GridViewColumn Header="学分" DisplayMemberBinding="{Binding Credit}" Width="{Binding ActualWidth, ElementName=C5}"/>
+                                    <GridViewColumn Header="绩点" DisplayMemberBinding="{Binding GradePoint}" Width="{Binding ActualWidth, ElementName=C6}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="学期成绩">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="cbTerm" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Width="150" materialDesign:HintAssist.Hint="学期学年" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                    <Line HorizontalAlignment="Stretch" 
+                      Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          X1="0"
+                          X2="1500"
+                          Y1="0"
+                          Y2="0"
+                          Stroke="{DynamicResource HighlightBrush}"
+                          Fill="{DynamicResource HighlightBrush}"/>
+                    <Button x:Name="btnTerm" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="btnTerm_Click"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition Width="0.6*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" x:Name="t0"/>
+                        <Grid Grid.Column="1" x:Name="t1"/>
+                        <Grid Grid.Column="2" x:Name="t2"/>
+                        <Grid Grid.Column="3" x:Name="t3"/>
+                        <Grid Grid.Column="4" x:Name="t4"/>
+                        <Grid Grid.Column="5" x:Name="t5"/>
+                        <Grid Grid.Column="6" x:Name="t6"/>
+                        <Grid Grid.Column="7" x:Name="t7"/>
+                        <Grid Grid.Column="8" x:Name="t8"/>
+                        <ListView x:Name="lvTerm"
+                                Grid.ColumnSpan="9"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                 FontFamily="Microsoft YaHei UI Light" FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=t0}"/>
+                                    <GridViewColumn Header="平台类别" DisplayMemberBinding="{Binding PlatformClass}" Width="{Binding ActualWidth, ElementName=t1}"/>
+                                    <GridViewColumn Header="修读性质" DisplayMemberBinding="{Binding NatureofReading}" Width="{Binding ActualWidth, ElementName=t2}"/>
+                                    <GridViewColumn Header="课程性质" DisplayMemberBinding="{Binding ClassNature}" Width="{Binding ActualWidth, ElementName=t3}"/>
+                                    <GridViewColumn Header="平时成绩" DisplayMemberBinding="{Binding DailyScore}" Width="{Binding ActualWidth, ElementName=t4}"/>
+                                    <GridViewColumn Header="卷面成绩" DisplayMemberBinding="{Binding ExaminationScore}" Width="{Binding ActualWidth, ElementName=t5}"/>
+                                    <GridViewColumn Header="总成绩" DisplayMemberBinding="{Binding FinalScore}" Width="{Binding ActualWidth, ElementName=t6}"/>
+                                    <GridViewColumn Header="学分" DisplayMemberBinding="{Binding Credit}" Width="{Binding ActualWidth, ElementName=t7}"/>
+                                    <GridViewColumn Header="绩点" DisplayMemberBinding="{Binding GradePoint}" Width="{Binding ActualWidth, ElementName=t8}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="考试表" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="cbYear" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Width="150" materialDesign:HintAssist.Hint="学期学年" Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
+                    <Line HorizontalAlignment="Stretch" 
+                      Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          X1="0"
+                          X2="1500"
+                          Y1="0"
+                          Y2="0"
+                          Stroke="{DynamicResource HighlightBrush}"
+                          Fill="{DynamicResource HighlightBrush}"  />
+                    <Button x:Name="btnTest" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Content="获取" Click="btnTest_Click"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" x:Name="T0"/>
+                        <Grid Grid.Column="1" x:Name="T1"/>
+                        <Grid Grid.Column="2" x:Name="T2"/>
+                        <Grid Grid.Column="3" x:Name="T3"/>
+                        <Grid Grid.Column="4" x:Name="T4"/>
+                        <Grid Grid.Column="5" x:Name="T5"/>
+                        <ListView x:Name="lvTest"
+                                Grid.ColumnSpan="6"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                IsSynchronizedWithCurrentItem="True" FontFamily="Microsoft YaHei UI Light" FontSize="14">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="课程名称" DisplayMemberBinding="{Binding ClassName}" Width="{Binding ActualWidth, ElementName=T0}"/>
+                                    <GridViewColumn Header="教学班/考试班" DisplayMemberBinding="{Binding TeachingClass}" Width="{Binding ActualWidth, ElementName=T1}"/>
+                                    <GridViewColumn Header="考试教室" DisplayMemberBinding="{Binding Classroom}" Width="{Binding ActualWidth, ElementName=T2}"/>
+                                    <GridViewColumn Header="考试时间" DisplayMemberBinding="{Binding Time}" Width="{Binding ActualWidth, ElementName=T3}"/>
+                                    <GridViewColumn Header="考试性质" DisplayMemberBinding="{Binding TestNature}" Width="{Binding ActualWidth, ElementName=T4}"/>
+                                    <GridViewColumn Header="主考老师" DisplayMemberBinding="{Binding Teacher}" Width="{Binding ActualWidth, ElementName=T5}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Open Source">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:Card Width="420" Margin="4 0 8 0" Height="270">
+                        <Grid VerticalAlignment="Stretch" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="5" StretchDirection="Both" VerticalAlignment="Stretch" Stretch="UniformToFill" Source="Resources/Contact.png" />
+                            <TextBlock Grid.Column="1" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">Get In Touch</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="16 0 16 8" Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       VerticalAlignment="Center">Say hello, make a feature request, or raise a bug through one of these channels:</TextBlock>
+                            <Border Grid.Column="1" Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                                <Grid Margin="8">
+                                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
+                                            x:Name="GitHubButton" 
+                                            Click="GitHubButton_Click"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="GithubCircle" />
+                                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">GitHub</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right"
+                                            x:Name="TwitterButton" 
+                                            Click="TwitterButton_Click"
+                                            >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Twitter" />
+                                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Twitter</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                                <Grid Margin="8">
+                                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Left"
+                                            x:Name="WeiboButton" 
+                                            Click="WeiboButton_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Message" />
+                                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Weibo</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{DynamicResource MaterialDesignFlatButton}" HorizontalAlignment="Right"
+                                            Click="EmailButton_Click"
+                                            x:Name="EmailButton" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Email" />
+                                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">Email</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="420"  Height="270">
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="GithubCircle" Width="160" Height="160" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 8">Open Source</TextBlock>
+                                <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           VerticalAlignment="Top">This project is completely open source. If you like it and want to say thanks you could hit the GitHub Star button, tweet or post about it, or tell your mum about it!</TextBlock>
+                            </StackPanel>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">
+                                <DockPanel>
+
+                                    <TextBlock Foreground="{DynamicResource MaterialDesignBodyLight}" TextWrapping="Wrap" Margin="16" VerticalAlignment="Center">
+                                        Feel like you want to push a commit?  It would be gratefully received.  :)
+                                    </TextBlock>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+            </TabItem>
+        </controls:MetroAnimatedSingleRowTabControl>
     </Grid>
 </controls:MetroWindow>

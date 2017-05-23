@@ -137,10 +137,10 @@
     <Compile Include="Models\BigScore.cs" />
     <Compile Include="Models\TermScore.cs" />
     <Compile Include="Models\TestTable.cs" />
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -149,11 +149,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\HttpHelper.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Window1.xaml">
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
