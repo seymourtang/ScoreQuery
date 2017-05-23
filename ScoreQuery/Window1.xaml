@@ -11,12 +11,13 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        BorderThickness="0"
-        ResizeMode="CanResizeWithGrip"
+        BorderThickness="0.5"
+        GlowBrush="Black"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Language="zh-CN"    
         TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"
+        TextOptions.TextRenderingMode="Auto"    
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="华东理工大学教务处信息查询" Height="610" Width="960" Icon="logo.ico" TitleAlignment="Center" WindowTitleBrush="{DynamicResource AccentColorBrush}" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Foreground="{x:Null}">
     <controls:MetroWindow.RightWindowCommands>
@@ -44,13 +45,13 @@
                      <LineBreak/>    
                      用到的第三方开源库：
                     <LineBreak/>
-                    · MahApps.Metro.1.5.0
+                    • MahApps.Metro.1.5.0
                     <LineBreak/>
-                    · HtmlAgilityPack.1.4.9.5
+                    • HtmlAgilityPack.1.4.9.5
                     <LineBreak/>
-                    · MaterialDesignColors.1.1.3
+                    • MaterialDesignColors.1.1.3
                     <LineBreak/>
-                    · MaterialDesignThemes.2.3.0.823
+                    • MaterialDesignThemes.2.3.0.823
                 </TextBlock>
             </controls:Flyout>
         </controls:FlyoutsControl>
