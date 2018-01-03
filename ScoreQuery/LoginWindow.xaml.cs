@@ -85,10 +85,10 @@ namespace ScoreQuery
                 string postData = string.Empty;
                 this.Invoke(new Action(() =>
                 {
-                    postData = string.Format("__EVENTTARGET={0}&__EVENTARGUMENT={1}&__VIEWSTATE={2}&TxtStudentId={3}&TxtPassword={4}&BtnLogin={5}&__EVENTVALIDATION={6}", __EVENTTARGET, __EVENTARGUMENT, __VIEWSTATE, tbStudentNo.Text, tbPassword.Password, BtnLogin, __EVENTVALIDATION);
+                    postData = string.Format("__EVENTTARGET={0}&__EVENTARGUMENT={1}&__VIEWSTATE={2}&TxtStudentId={3}&TxtSFZH={4}&BtnLogin={5}&__EVENTVALIDATION={6}", __EVENTTARGET, __EVENTARGUMENT, __VIEWSTATE, tbStudentNo.Text, tbPassword.Password, BtnLogin, __EVENTVALIDATION);
                 }));
-                var result = httpHelper.HttpPost(ServiceURL.StudentLoginPostUrl, postData);
-                if (result.Contains("您好"))
+                var result = httpHelper.HttpPost(ServiceURL.ParentsLoginPostUrl, postData);
+                if (result.Contains("欢迎"))
                 {
                     this.Invoke(new Action(() =>
                     {

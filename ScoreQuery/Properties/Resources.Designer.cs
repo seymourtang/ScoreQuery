@@ -19,7 +19,7 @@ namespace ScoreQuery.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -79,7 +79,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to %2FwEWBALplYnsCgK%2Fycb4AQLVqbaRCwLi44eGDNL1%2FUVfta6zTJ9DMRXMNe6Ao6Wm.
+        ///   Looks up a localized string similar to %2FwEWBALtgYX0DwK%2Fycb4AQLU6rEHAuLjh4YMJ%2FuMbOy0%2Ffn0UeHoB5DIxlisz08%3D.
         /// </summary>
         internal static string @__EVENTVALIDATION {
             get {
@@ -88,7 +88,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to %2FwEPDwUJMTg2MzE1NTYyD2QWAgIBD2QWAgIGDw8WAh4EVGV4dAVQ5a2m55Sf5Yid5aeL5a%2BG56CB5Li66Lqr5Lu96K%2BB5Y%2B35ZCO5YWt5L2N44CC5a%2BG56CB6ZW%2F5bqm5LiN6LaF6L%2BHMTDkuKrlrZfnrKbjgIJkZGTItFe6UDnNqdE2sz592HXKwZ7Fhw%3D%3D.
+        ///   Looks up a localized string similar to %2FwEPDwUKMTUwODM3MTQ2Nw9kFgICAQ9kFgICCQ8PFgQeBFRleHRlHgdWaXNpYmxlaGRkZGO0jC0dS0YidkgEu6HHtZzJ4QnM.
         /// </summary>
         internal static string @__VIEWSTATE {
             get {
@@ -97,7 +97,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;btnSelect=%E6%9F%A5%E8%AF%A2&amp;__EVENTVALIDATION=%2FwEWCgKLm77%2BBQKC5sFXApf3trkEAtjpwosFAoD6pfQIAo%2F6iQkCgPqJCQKP%2Bp2iCwKA%2Bp2iCwLax9vVBuDvhWmvSSKen8kat%2Bw%2BroqZ42e3.
+        ///   Looks up a localized string similar to &amp;btnSelect=%E6%9F%A5%E8%AF%A2&amp;__EVENTVALIDATION=%2FwEWCgKKurKkCQKC5sFXApf3trkEAtjpwosFAoD60dMBAo%2F6pfQIAoD6pfQIAo%2F6iQkCgPqJCQLax9vVBtD771fvr%2F4hhpjHMxYIAWKmKsY%2F.
         /// </summary>
         internal static string TermPostData_Footer {
             get {
@@ -106,7 +106,7 @@ namespace ScoreQuery.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to __EVENTTARGET=&amp;__EVENTARGUMENT=&amp;__VIEWSTATE=%2FwEPDwUKLTM1MDcwMDg1MQ9kFgICAQ9kFgICAQ9kFghmD2QWAmYPZBYCAgMPDxYEHgRUZXh0BQzlrablubTlrabmnJ8eB0VuYWJsZWRoZGQCAQ9kFgJmD2QWAgIBDxAPFgYeDURhdGFUZXh0RmllbGQFCFRlcm1OYW1lHg5EYXRhVmFsdWVGaWVsZAUIWWVhclRlcm0eC18hRGF0YUJvdW5kZ2QQFQYV4oCU4oCU6K%2B36YCJ5oup4oCU4oCUFjIwMTYtMjAxN%2BWtpuW5tDHlrabmnJ8WMjAxNS0yMDE25a2m5bm0MuWtpuacnxYyMDE1LTIwMTblrablubQx5a2m5pyfFjIwMTQtMjAxNeWtpuW5tDLlrabmnJ8WMjAxNC0yMDE15a2m5bm0MeWtpuacnxUGATAFMjAxNjEFMjAxNTIFMjAxNTEFMjAxNDIFMjAxNDEUKwMGZ2dnZ2 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to __EVENTTARGET=&amp;__EVENTARGUMENT=&amp;__VIEWSTATE=%2FwEPDwUKLTM1MDcwMDg1MQ9kFgICAQ9kFgICAQ9kFghmD2QWAmYPZBYCAgMPDxYEHgRUZXh0BQzlrablubTlrabmnJ8eB0VuYWJsZWRoZGQCAQ9kFgJmD2QWAgIBDxAPFgYeDURhdGFUZXh0RmllbGQFCFRlcm1OYW1lHg5EYXRhVmFsdWVGaWVsZAUIWWVhclRlcm0eC18hRGF0YUJvdW5kZ2QQFQYV4oCU4oCU6K%2B36YCJ5oup4oCU4oCUFjIwMTctMjAxOOWtpuW5tDHlrabmnJ8WMjAxNi0yMDE35a2m5bm0MuWtpuacnxYyMDE2LTIwMTflrablubQx5a2m5pyfFjIwMTUtMjAxNuWtpuW5tDLlrabmnJ8WMjAxNS0yMDE25a2m5bm0MeWtpuacnxUGATAFMjAxNzEFMjAxNjIFMjAxNjEFMjAxNTIFMjAxNTEUKwMGZ2dnZ2dn [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TermPostData_Header {
             get {
